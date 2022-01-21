@@ -68,13 +68,38 @@
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
+DROP TABLE IF EXISTS movie;
+DROP TABLE IF EXISTS actor;
 
 -- Create new tables, according to your domain model
 -- TODO!
+CREATE TABLE movie (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  year INTEGER,
+  rating TEXT,
+  director TEXT
+);
+
+CREATE TABLE actor (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  entire_name TEXT,
+  character TEXT,
+  movie_id INTEGER
+);
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
+
+INSERT INTO movie
+VALUES (1,"Batman Begins", 2005, "PG-13", "Christopher Nolan");
+
+INSERT INTO movie
+VALUES (2,"The Dark Knight", 2008,"PG-13", "Christopher Nolan");
+
+INSERT INTO movie
+VALUES (3,"The Dark Knight Rises", 2012,"PG-13", "Christopher Nolan");
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -93,22 +118,7 @@
 
 -- The SQL statement for the cast output
 -- TODO!
-.mode column
-.headers on
-DROP TABLE IF EXISTS movie
-DROP TABLE IF EXISTS actor;
-
-
-CREATE TABLE movie (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
-  year TEXT
-);
 
 -- Create the rest of the tables
 
-CREATE TABLE actor (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  entire_name TEXT,
-  character TEXT
-);
+
