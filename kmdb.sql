@@ -93,3 +93,22 @@
 
 -- The SQL statement for the cast output
 -- TODO!
+.mode column
+.headers on
+DROP TABLE IF EXISTS movie
+DROP TABLE IF EXISTS actor;
+
+
+CREATE TABLE movie (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  year TEXT
+);
+
+-- Create the rest of the tables
+
+CREATE TABLE actor (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  entire_name TEXT,
+  character TEXT
+);
