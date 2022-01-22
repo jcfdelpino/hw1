@@ -68,12 +68,12 @@
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
-DROP TABLE IF EXISTS movie;
-DROP TABLE IF EXISTS actor;
-DROP TABLE IF EXISTS character;
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS actors;
+DROP TABLE IF EXISTS characters;
 -- Create new tables, according to your domain model
 -- TODO!
-CREATE TABLE movie (
+CREATE TABLE movies (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT,
   year INTEGER,
@@ -81,14 +81,13 @@ CREATE TABLE movie (
   director TEXT
 );
 
-CREATE TABLE actor (
+CREATE TABLE actors (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  entire_name TEXT,
-  character_id INTEGER,
-  movie_id INTEGER
+  name TEXT,
+  character_id INTEGER
 );
 
-CREATE TABLE character (
+CREATE TABLE characters (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT
  );
@@ -97,13 +96,13 @@ CREATE TABLE character (
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
 
-INSERT INTO movie
+INSERT INTO movies
 VALUES 
 (1,"Batman Begins", 2005, "PG-13", "Christopher Nolan"),
 (2,"The Dark Knight", 2008,"PG-13", "Christopher Nolan"),
 (3,"The Dark Knight Rises", 2012,"PG-13", "Christopher Nolan");
 
-INSERT INTO character
+INSERT INTO characters
 VALUES 
 (1,"Bruce Wayne"),
 (2,"Alfred"),
@@ -116,18 +115,20 @@ VALUES
 (9,"John Blake"),
 (10,"Selina Kyle");
 
-INSERT INTO actor
+INSERT INTO actors
 VALUES 
-(1,"Christian Bale",1,1),
-(2,"Michael Caine",2,1),
-(3,"Liam Neeson",3,1),
-(4,"Katie Holmes",4,1),
-(5,"Gary Oldman",5,1),
-(6,"Joker"),
-(7,"Harvey Dent"),
-(8,"Bane"),
-(9,"John Blake"),
-(10,"Selina Kyle");
+(1,"Christian Bale",1),
+(2,"Michael Caine",2),
+(3,"Liam Neeson",3),
+(4,"Katie Holmes",4),
+(5,"Gary Oldman",5),
+(6,"Heath Ledger",6),
+(7,"Aaron Eckhart",7),
+(8,"Maggie Gyllenhall",4),
+(9,"Tom Hardy",8),
+(10,"Joseph Gordon-Levitt",9),
+(11,"Anne Hathaway",10);
+
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -136,7 +137,7 @@ VALUES
 
 -- The SQL statement for the movies output
 -- TODO!
-SELECT name, year,rating, director FROM movie;
+SELECT name,year,rating,director FROM movies;
 
 -- Prints a header for the cast output
 .print ""
@@ -147,6 +148,7 @@ SELECT name, year,rating, director FROM movie;
 
 -- The SQL statement for the cast output
 -- TODO!
+
 
 -- Create the rest of the tables
 
