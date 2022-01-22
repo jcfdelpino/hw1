@@ -63,28 +63,31 @@
 -- The Dark Knight Rises  Anne Hathaway         Selina Kyle
 
 -- Turns column mode on but headers off
-.mode column
+.mode column 
 .headers off
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
 DROP TABLE IF EXISTS movies;
-DROP TABLE IF EXISTS actors;
+DROP TABLE IF EXISTS performances;
 DROP TABLE IF EXISTS characters;
+DROP TABLE IF EXISTS years;
+
 -- Create new tables, according to your domain model
 -- TODO!
 CREATE TABLE movies (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT,
-  year INTEGER,
+  year_id INTEGER,
   rating TEXT,
   director TEXT
 );
-
-CREATE TABLE actors (
+CREATE TABLE performances (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT,
-  character_id INTEGER
+  character_id INTEGER,
+  year_id INTEGER,
+  movie_id INTEGER
 );
 
 CREATE TABLE characters (
@@ -92,15 +95,22 @@ CREATE TABLE characters (
   name TEXT
  );
 
+ CREATE TABLE years (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  year INTEGER
+ );
+
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
 
+
 INSERT INTO movies
 VALUES 
-(1,"Batman Begins", 2005, "PG-13", "Christopher Nolan"),
-(2,"The Dark Knight", 2008,"PG-13", "Christopher Nolan"),
-(3,"The Dark Knight Rises", 2012,"PG-13", "Christopher Nolan");
+(1,"Batman Begins", 1, "PG-13", "Christopher Nolan"),
+(2,"The Dark Knight", 2,"PG-13", "Christopher Nolan"),
+(3,"The Dark Knight Rises", 3,"PG-13", "Christopher Nolan");
+
 
 INSERT INTO characters
 VALUES 
@@ -115,20 +125,29 @@ VALUES
 (9,"John Blake"),
 (10,"Selina Kyle");
 
-INSERT INTO actors
+INSERT INTO performances
 VALUES 
-(1,"Christian Bale",1),
-(2,"Michael Caine",2),
-(3,"Liam Neeson",3),
-(4,"Katie Holmes",4),
-(5,"Gary Oldman",5),
-(6,"Heath Ledger",6),
-(7,"Aaron Eckhart",7),
-(8,"Maggie Gyllenhall",4),
-(9,"Tom Hardy",8),
-(10,"Joseph Gordon-Levitt",9),
-(11,"Anne Hathaway",10);
+(1,"Christian Bale",1,1,1),
+(2,"Michael Caine",2,1,1),
+(3,"Liam Neeson",3,1,1),
+(4,"Katie Holmes",4,1,1),
+(5,"Gary Oldman",5,1,1),
+(6,"Christian Bale",1,2,2),
+(7,"Heath Ledger",6,2,2),
+(8,"Aaron Eckhart",7,2,2),
+(9,"Michael Caine",2,2,2),
+(10,"Maggie Gyllenhall",4,2,2),
+(11,"Christian Bale",1,3,3),
+(12,"Gary Oldman",5,3,3),
+(13,"Tom Hardy",8,3,3),
+(14,"Joseph Gordon-Levitt",9,3,3),
+(15,"Anne Hathaway",10,3,3);
 
+INSERT INTO years
+VALUES 
+(1,2005),
+(2,2008),
+(3,2012);
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -137,7 +156,10 @@ VALUES
 
 -- The SQL statement for the movies output
 -- TODO!
-SELECT name,year,rating,director FROM movies;
+.width 25 15 15
+SELECT movies.name, years.year, movies.rating, movies.director 
+FROM movies
+INNER JOIN years ON movies.year_id = years.id;
 
 -- Prints a header for the cast output
 .print ""
@@ -145,10 +167,13 @@ SELECT name,year,rating,director FROM movies;
 .print "========"
 .print ""
 
-
 -- The SQL statement for the cast output
 -- TODO!
-
+.width 25 25 25
+SELECT movies.name, performances.name, characters.name
+FROM performances
+INNER JOIN movies ON performances.movie_id = movies.id
+INNER JOIN characters ON performances.character_id = characters.id;
 
 -- Create the rest of the tables
 
