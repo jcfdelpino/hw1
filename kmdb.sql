@@ -70,7 +70,7 @@
 -- TODO!
 DROP TABLE IF EXISTS movie;
 DROP TABLE IF EXISTS actor;
-
+DROP TABLE IF EXISTS character;
 -- Create new tables, according to your domain model
 -- TODO!
 CREATE TABLE movie (
@@ -84,22 +84,50 @@ CREATE TABLE movie (
 CREATE TABLE actor (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   entire_name TEXT,
-  character TEXT,
+  character_id INTEGER,
   movie_id INTEGER
 );
+
+CREATE TABLE character (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT
+ );
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
 
 INSERT INTO movie
-VALUES (1,"Batman Begins", 2005, "PG-13", "Christopher Nolan");
+VALUES 
+(1,"Batman Begins", 2005, "PG-13", "Christopher Nolan"),
+(2,"The Dark Knight", 2008,"PG-13", "Christopher Nolan"),
+(3,"The Dark Knight Rises", 2012,"PG-13", "Christopher Nolan");
 
-INSERT INTO movie
-VALUES (2,"The Dark Knight", 2008,"PG-13", "Christopher Nolan");
+INSERT INTO character
+VALUES 
+(1,"Bruce Wayne"),
+(2,"Alfred"),
+(3,"Ra's Al Ghul"),
+(4,"Rachel Dawes"),
+(5,"Commissioner Gordon"),
+(6,"Joker"),
+(7,"Harvey Dent"),
+(8,"Bane"),
+(9,"John Blake"),
+(10,"Selina Kyle");
 
-INSERT INTO movie
-VALUES (3,"The Dark Knight Rises", 2012,"PG-13", "Christopher Nolan");
+INSERT INTO actor
+VALUES 
+(1,"Christian Bale",1,1),
+(2,"Michael Caine",2,1),
+(3,"Liam Neeson",3,1),
+(4,"Katie Holmes",4,1),
+(5,"Gary Oldman",5,1),
+(6,"Joker"),
+(7,"Harvey Dent"),
+(8,"Bane"),
+(9,"John Blake"),
+(10,"Selina Kyle");
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -108,6 +136,7 @@ VALUES (3,"The Dark Knight Rises", 2012,"PG-13", "Christopher Nolan");
 
 -- The SQL statement for the movies output
 -- TODO!
+SELECT name, year,rating, director FROM movie;
 
 -- Prints a header for the cast output
 .print ""
